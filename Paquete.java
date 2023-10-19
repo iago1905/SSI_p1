@@ -211,7 +211,7 @@ public class Paquete {
      */
     public static void main(String[] args) {
 
-        System.out.println("** Se crea un paquete y se escribe en /tmp/paquete1.bin");
+        System.out.println("** Se crea un paquete y se escribe en /tmp/paquete1.bin"); //Da error
 
         // Crea un Paquete vacio y le añade 3 bloques
         Paquete paquete = new Paquete();
@@ -223,15 +223,15 @@ public class Paquete {
         paquete.anadirBloque("parte3 muy larga", datosParte3);
 
         // Escribe el Paquete al fichero indicado
-        paquete.escribirPaquete("/tmp/paquete1.bin");
+        paquete.escribirPaquete("\\tmp\\paquete1.bin");
 
         System.out.println("");
 
 
         System.out.println("** Se lee el paquete de /tmp/paquete1.bin y se vuelve a escribir en /tmp/paquete2.bin");
         // Crea un Paquete leyendo su contenido del fichero indicado
-        Paquete paqueteLeido = new Paquete("/tmp/paquete1.bin"); 
-        paqueteLeido.escribirPaquete("/tmp/paquete2.bin");
+        Paquete paqueteLeido = new Paquete("\\tmp\\paquete1.bin"); 
+        paqueteLeido.escribirPaquete("\\tmp\\paquete2.bin");
 
         System.out.println();
 
