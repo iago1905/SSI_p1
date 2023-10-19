@@ -2,16 +2,12 @@ import java.io.*;
 
 import java.util.Arrays;
 import java.security.*;
-import java.security.interfaces.RSAKey;
+
 import java.security.spec.*;
 
 import javax.crypto.*;
-import javax.crypto.interfaces.*;
-import javax.crypto.spec.*;
 
-import org.bouncycastle.asn1.pkcs.RSAESOAEPparams;
-import org.bouncycastle.jcajce.provider.asymmetric.RSA;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
+import javax.crypto.spec.*;
 
 public class Desempaquetar {
     public static void main(String[] args) throws Exception {

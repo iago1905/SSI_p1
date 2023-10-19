@@ -1,22 +1,13 @@
-
-
 import java.io.*;
 import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Date;
 
-
 import java.security.*;
-import java.security.interfaces.RSAKey;
+
 import java.security.spec.*;
 
 import javax.crypto.*;
-import javax.crypto.interfaces.*;
-import javax.crypto.spec.*;
-
-import org.bouncycastle.asn1.pkcs.RSAESOAEPparams;
-import org.bouncycastle.jcajce.provider.asymmetric.RSA;
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
 
 public class SellarExamen{
     public static void main(String[] args) throws Exception {
@@ -106,6 +97,7 @@ public class SellarExamen{
         //byte[] hash = hashSellado; //puede sobrar esta linea
         //cifrar.update(hash);
         byte[] fin = cifrar.doFinal(hashSellado);
+        System.out.println("El examen ha sido sellado");
         return fin;
     }
 }
