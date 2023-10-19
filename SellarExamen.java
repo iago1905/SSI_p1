@@ -1,8 +1,10 @@
-import java.io.*;
+import Paquete$bl;
 
+import java.io.*;
+import java.nio.ByteBuffer;
 import java.util.Arrays;
 import java.util.Date;
-import com.ibm.as400.access.DateTimeConverter;
+
 
 import java.security.*;
 import java.security.interfaces.RSAKey;
@@ -29,7 +31,11 @@ public class SellarExamen{
         if (verificarHash(descifrarHashClavePrivadaAlumno(hashCifrado), hashClaveSecretaCifrada(claveCifrada, examenCifrado))){
             System.out.println("El hash es correcto, se sellará el examen");
             Date fecha = new Date();
-            cifrarSellado(hashSellado(claveCifrada, examenCifrado, hashCifrado, fecha));
+            long fechaLong = fecha.getTime(); //convertir fecha a long
+            ByteBuffer buffer = ByteBuffer.allocate(Long.BYTES); //crear buffer de bytes
+            buffer.putLong(fechaLong); //escribir long en el buffer
+            byte[] fechaBytes = buffer.array(); //obtener bytes del buffer
+            cifrarSellado(hashSellado(claveCifrada, examenCifrado, hashCifrado, fechaBytes));
         }else{
             System.out.println("El hash no es correcto, los datos fueron modificados");
         }
@@ -71,13 +77,13 @@ public class SellarExamen{
         return Arrays.equals(hashDescifrado, hashClaveSecretaExamenCifrado);
     }
 
-    public static byte[] hashSellado(byte[] claveCifrada, byte[] examenCifrado, byte[] hashCifrado, Date fecha) throws Exception{ //parametro a pasar???
+    public static byte[] hashSellado(byte[] claveCifrada, byte[] examenCifrado, byte[] hashCifrado, byte[] fecha) throws Exception{ //parametro a pasar???
         //Calcular hash del examen
         MessageDigest hash = MessageDigest.getInstance("SHA-256");
         hash.update(examenCifrado);
         hash.update(claveCifrada);
         hash.update(hashCifrado);
-        hash.update(convert(fecha,"*DTS"));//buscar forma de pasar Date a byte[], esta serviria pero no se como importarlo
+        hash.update(fecha);//buscar forma de pasar Date a byte[], esta serviria pero no se como importarlo
                                             //lo mejor seria pasar Date a toString y hacer un byte[] de la cadena
         byte[] hashSellado = hash.digest();
 
