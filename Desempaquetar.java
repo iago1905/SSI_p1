@@ -1,5 +1,6 @@
 import java.io.*;
 
+import java.util.Arrays;
 import java.security.*;
 import java.security.interfaces.RSAKey;
 import java.security.spec.*;
@@ -52,6 +53,10 @@ public class Desempaquetar {
         //Verificar hash
         if(verificarHash(hashDescifrado,hashClaveSecretaExamenCifrado)){
             System.out.println("El hash es correcto");
+            FileOutputStream out = new FileOutputStream("archivo.txt");
+            out.write(examenDescifrado);
+            out.flush();
+            out.close();
         } else {
             System.out.println("El hash no es correcto");
         };
@@ -124,7 +129,8 @@ public class Desempaquetar {
     }
 
     public static boolean verificarHash(byte[] hashDescifrado, byte[] hashClaveSecretaExamenCifrado) throws Exception{
-        FileInputStream publicKeyFile = new FileInputStream("alumno.publica");
+        return Arrays.equals(hashDescifrado, hashClaveSecretaExamenCifrado);
+        /*FileInputStream publicKeyFile = new FileInputStream("alumno.publica");
         byte[] publicKeyBytes = new byte[publicKeyFile.available()];
         publicKeyFile.read(publicKeyBytes);
         publicKeyFile.close();
@@ -140,7 +146,7 @@ public class Desempaquetar {
             return true;
         }else{
             return false;
-        }
+        }*/
     }
 
 

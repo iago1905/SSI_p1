@@ -98,8 +98,8 @@ public class Empaquetar{
         byte[] clave = claveSecreta.getEncoded();
         
         System.out.println("Clave getencoded: " + bytesToHex(clave)); //3d8a689d34aece1a
-        cifrar.update(clave);
-        byte[] fin = cifrar.doFinal();
+        //cifrar.update(clave);
+        byte[] fin = cifrar.doFinal(clave);
         return fin;//clave secreta cifrada con clave pública del profesor, para incluir en el paquete
         
     }
@@ -129,8 +129,8 @@ public class Empaquetar{
         Cipher cifrar = Cipher.getInstance("RSA/ECB/PKCS1Padding");
         cifrar.init(Cipher.ENCRYPT_MODE, clavePrivadaAlumno);
         byte[] hash = hashClaveCifradaExamenCirfrado; //puede sobrar esta linea
-        cifrar.update(hash);
-        byte[] fin = cifrar.doFinal();
+        //cifrar.update(hash);
+        byte[] fin = cifrar.doFinal(hash);
         return fin;
     }
     
