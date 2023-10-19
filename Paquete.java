@@ -223,15 +223,15 @@ public class Paquete {
         paquete.anadirBloque("parte3 muy larga", datosParte3);
 
         // Escribe el Paquete al fichero indicado
-        paquete.escribirPaquete("\\tmp\\paquete1.bin");
+        paquete.escribirPaquete("paquete1.bin");
 
         System.out.println("");
 
 
         System.out.println("** Se lee el paquete de /tmp/paquete1.bin y se vuelve a escribir en /tmp/paquete2.bin");
         // Crea un Paquete leyendo su contenido del fichero indicado
-        Paquete paqueteLeido = new Paquete("\\tmp\\paquete1.bin"); 
-        paqueteLeido.escribirPaquete("\\tmp\\paquete2.bin");
+        Paquete paqueteLeido = new Paquete("paquete1.bin"); 
+        paqueteLeido.escribirPaquete("paquete2.bin");
 
         System.out.println();
 
