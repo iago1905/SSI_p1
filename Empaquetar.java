@@ -8,7 +8,7 @@ import javax.crypto.*;
 
 
 public class Empaquetar{
-    public static void main(String[] args) throws Exception {
+    public static void main() throws Exception {
         //Generar secretKey
         SecretKey claveSecreta = generaSecretKey();
 
@@ -31,6 +31,10 @@ public class Empaquetar{
         byte[] hashCifrado = cifrarHashClavePrivadaAlumno(hashClaveSecretaExamenCifrado);
         System.out.println("Hash cifrado: " + hashCifrado);
         System.out.println(bytesToHex(hashCifrado));
+
+        //27-10-2023
+        // Meter sellado en el paquete
+        
 
         //Empaquetar
         Paquete paquete = new Paquete();

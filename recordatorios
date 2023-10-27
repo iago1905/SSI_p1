@@ -3,3 +3,8 @@ pasos que hacer:
 - empaquetar examen.txt ((archivo examen.txt creado a mano))
 - sellarExamen paquete.bin ((paquete.bin es el paquete creado en el paso anterior))
 - desempaquetarExamen paquete.bin  ((el sellado donde se guarda? el return de cifrarSellado es un byte[] que no almacenamos en ningun sitio))
+
+
+
+
+meter fecha tambien en el hash de sello, y 'dessellar'

@@ -1,6 +1,7 @@
 import java.io.*;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.security.*;
 
 import java.security.spec.*;
@@ -11,8 +12,8 @@ import javax.crypto.spec.*;
 
 public class Desempaquetar {
     public static void main(String[] args) throws Exception {
-    // TODO code application logic here
-    desempaquetar("paquete.bin");
+        // TODO code application logic here
+        desempaquetar("paquete.bin");
     }
 
 
@@ -56,9 +57,47 @@ public class Desempaquetar {
         } else {
             System.out.println("El hash no es correcto");
         };
+
+        //Sello y fecha
+        byte[] sello = paquete.getContenidoBloque("sello");
+        byte[] fechaSellado = paquete.getContenidoBloque("fechaSellado");
+        System.out.println("Sello: " + selloLeer(sello));
+        System.out.println("Fecha sellado:\n" + fechaLeer(bytesToHex(fechaSellado)));
+        
         
     }
     
+
+
+    private static String selloLeer(byte[] bytesToHex) throws Exception {
+        // Cargar la clave privada desde un archivo
+        FileInputStream in = new FileInputStream("sellado.privada");
+        byte[] encodedPKCS8 = new byte[in.available()];
+        in.read(encodedPKCS8);
+        in.close();
+        KeyFactory keyFactoryRSA = KeyFactory.getInstance("RSA");
+        PKCS8EncodedKeySpec privateKeySpec = new PKCS8EncodedKeySpec(encodedPKCS8);
+        PrivateKey clavePrivada = keyFactoryRSA.generatePrivate(privateKeySpec);
+
+        // Descifrar el mensaje utilizando la clave privada
+        Cipher cifrador = Cipher.getInstance("RSA/ECB/PKCS1Padding");
+        cifrador.init(Cipher.DECRYPT_MODE, clavePrivada);
+        byte[] mensajeDescifrado = cifrador.doFinal(bytesToHex);
+
+        //byte[] a stringf
+        String mensajeDescifradoString = new String(mensajeDescifrado);
+
+        return mensajeDescifradoString;
+    }
+
+
+
+    private static String fechaLeer(String fechaByte) {
+        long fechaLong = Long.parseLong(fechaByte, 16);
+        Date fecha = new Date(fechaLong);
+        return fecha.toString();
+    }
+
 
 
     public static byte[] descifrarClave(byte[] claveCifrada) throws Exception{
